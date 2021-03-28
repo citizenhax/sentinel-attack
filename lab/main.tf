@@ -25,53 +25,53 @@ resource "azurerm_network_security_group" "nsg" {
     tags                = var.tags
     depends_on          = [azurerm_virtual_network.vnet]
 
-    security_rule {
-        name                       = "RDP"
-        priority                   = 100
-        direction                  = "Inbound"
-        access                     = "Allow"
-        protocol                   = "Tcp"
-        source_port_range          = "*"
-        destination_port_range     = "3389"
-        source_address_prefix      = "*"
-        destination_address_prefix = "*"
-    }
+#    security_rule {
+#        name                       = "RDP"
+#        priority                   = 100
+#        direction                  = "Inbound"
+#        access                     = "Allow"
+#        protocol                   = "Tcp"
+#        source_port_range          = "*"
+#        destination_port_range     = "3389"
+#        source_address_prefix      = "*"
+#        destination_address_prefix = "*"
+#    }
 
-    security_rule {
-        name                       = "SSH"
-        priority                   = 101
-        direction                  = "Inbound"
-        access                     = "Allow"
-        protocol                   = "Tcp"
-        source_port_range          = "*"
-        destination_port_range     = "22"
-        source_address_prefix      = "*"
-        destination_address_prefix = "*"
-    }
+#    security_rule {
+#        name                       = "SSH"
+#        priority                   = 101
+#        direction                  = "Inbound"
+#        access                     = "Allow"
+#        protocol                   = "Tcp"
+#        source_port_range          = "*"
+#        destination_port_range     = "22"
+#        source_address_prefix      = "*"
+#        destination_address_prefix = "*"
+#    }
 
-    security_rule {
-        name                       = "HTTP-inbound"
-        priority                   = 102
-        direction                  = "Inbound"
-        access                     = "Allow"
-        protocol                   = "Tcp"
-        source_port_range          = "*"
-        destination_port_range     = "80"
-        source_address_prefix      = "*"
-        destination_address_prefix = "*"
-    }
+#    security_rule {
+#        name                       = "HTTP-inbound"
+#        priority                   = 102
+#        direction                  = "Inbound"
+#        access                     = "Allow"
+#        protocol                   = "Tcp"
+#        source_port_range          = "*"
+#        destination_port_range     = "80"
+#        source_address_prefix      = "*"
+#        destination_address_prefix = "*"
+#    }
 
-    security_rule {
-        name                       = "HTTPS-inbound"
-        priority                   = 103
-        direction                  = "Inbound"
-        access                     = "Allow"
-        protocol                   = "Tcp"
-        source_port_range          = "*"
-        destination_port_range     = "443"
-        source_address_prefix      = "*"
-        destination_address_prefix = "*"
-    }
+#    security_rule {
+#        name                       = "HTTPS-inbound"
+#        priority                   = 103
+#        direction                  = "Inbound"
+#        access                     = "Allow"
+#        protocol                   = "Tcp"
+#        source_port_range          = "*"
+#        destination_port_range     = "443"
+#        source_address_prefix      = "*"
+#        destination_address_prefix = "*"
+#    }
 
     security_rule {
         name                       = "HTTP-outbound"
@@ -191,7 +191,7 @@ resource "azurerm_virtual_machine_extension" "create_ad" {
   tags                 = var.tags
   protected_settings = <<PROT
     {
-      "fileUris": ["https://raw.githubusercontent.com/BlueTeamLabs/sentinel-attack/master/lab/files/create-ad.ps1"],
+      "fileUris": ["https://raw.githubusercontent.com/citizenhax/sentinel-attack/master/lab/files/create-ad.ps1"],
       "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File create-ad.ps1 ${var.accounts.dc1_admin_password} ${var.resource_group_name}.com ${var.resource_group_name}"
     }
   PROT
@@ -280,7 +280,7 @@ resource "azurerm_virtual_machine_extension" "utils_pc1" {
   tags                 = var.tags
   protected_settings = <<PROT
     {
-      "fileUris": ["https://raw.githubusercontent.com/BlueTeamLabs/sentinel-attack/master/lab/files/install-utilities.ps1"],
+      "fileUris": ["https://raw.githubusercontent.com/citizenhax/sentinel-attack/master/lab/files/install-utilities.ps1"],
       "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File install-utilities.ps1 ${var.resource_group_name}.com ${var.accounts.dc1_admin_password} ${var.resource_group_name}.com\\${var.accounts.dc1_admin_user}"
     }
   PROT
